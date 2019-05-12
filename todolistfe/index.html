@@ -1,0 +1,101 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        button:hover {
+            opacity: 0.8;
+        }
+        
+        .container {
+            width: 25%;
+            height: 500px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>ToDoList Giriş</h2>
+
+        <div>
+            <label for="uname"><b>E-Mail Adresi</b></label>
+            <input id="email" type="text" placeholder="E-Mail Adresi" name="email" required>
+            <label for="psw"><b>Şifre</b></label>
+            <input id="password" type="password" placeholder="Şifre" name="password" required>
+            <button onclick="login()">Giriş Yap</button>
+            <button onclick="document.location = 'signup.html' ">Kaydol</button>
+        </div>
+        <div>
+            <script>
+                $(document).ready(function() {
+		    /*
+                    if (sessionStorage.getItem("id") === null) {
+                        document.location = "todolist.html";
+                    }
+		    */
+                });
+
+                function login() {
+                    var email = document.getElementById("email").value;
+                    var password = document.getElementById("password").value;
+                    var targeturl = "http://localhost:9090/user/" + email + "/find/" + password;
+                    $.ajax({
+                        url: targeturl,
+                        type: "GET",
+                        crossDomain: true,
+                        contentType: 'application/json; charset=utf-8',
+                        success: function(resultData) {
+                            if (resultData === null) {
+                                alert("Kullanıcı Adı veya Parola Yanlış");
+                            } else {
+                                sessionStorage.setItem("uname", resultData["name"]);
+                                sessionStorage.setItem("id", resultData["id"]);
+                                document.location = "todolist.html";
+                            }
+                        },
+                        error: function() {
+                            alert("Kullanıcı Adı veya Şifre Yanlış");
+                        }
+                    });
+                }
+            </script>
+</body>
+
+</html>
