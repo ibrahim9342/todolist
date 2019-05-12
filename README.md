@@ -6,7 +6,7 @@ To Run the Application,
  - Create a database named "todolist".
  - In the todolist project, set your database settings from the application.properties section in the source section.
  - Do not change of "server.port = 9090". Frontend works on port 9090.
- - Build Maven
+ - Right-click on the project and make "RunAs > Maven Build"
  - Right click on com.backend.todolist > TodolistApplication.java and run RunAs> Java Application.
  - Start the index.html file in the todolistfe folder in your browser after the project starts
 
